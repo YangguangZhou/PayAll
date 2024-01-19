@@ -147,6 +147,8 @@
         //     document.getElementById("page-url").src = QRCode.generatePNG(window.location.href, { margin: 0 });
         //     document.getElementById("code-all").style.display = "block";
         // }
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('id');
         fetch(`https://g3rvbpemgm.us.aircode.run/pay?id=${id}`)
             .then(response => response.json())
             .then(data => {
