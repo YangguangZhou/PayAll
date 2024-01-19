@@ -144,7 +144,7 @@
     <div class="code-item" id="code-all">
         <div class="code-title"></div>
         <div class="code-area">
-            <img id="page-url" src="">
+            <img id="page-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
         </div>
         <div class="code-footer">扫描以上二维码向我付款<br>感谢您的支持</div>
     </div>
@@ -153,7 +153,7 @@
     <div class="code-item" id="code-qq">
         <div class="code-title"></div>
         <div class="code-area">
-            <img id="qq-url" src="">
+            <img id="qq-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
         </div>
         <div class="code-footer">长按以上二维码向我付款<br>感谢您的支持</div>
     </div>
@@ -162,9 +162,18 @@
     <div class="code-item" id="code-wechat">
         <div class="code-title"></div>
         <div class="code-area">
-            <img id="wechat-url" src="">
+            <img id="wechat-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
         </div>
         <div class="code-footer">保存以上二维码并扫描向我付款<br>感谢您的支持</div>
+    </div>
+
+    <!-- 支付宝二维码展示区域 -->
+    <div class="code-item" id="code-alipay">
+        <div class="code-title"></div>
+        <div class="code-area">
+            <img id="alipay-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
+        </div>
+        <div class="code-footer">扫描以上二维码向我付款<br>感谢您的支持</div>
     </div>
 
     <div class="copyright">
@@ -196,7 +205,8 @@
                         // 根据用户代理设置相应的二维码图片
                         if (navigator.userAgent.match(/Alipay/i)) {
                             /* 支付宝 */
-                            window.location.href = setting.aliUrl;
+                            if(setting.aliUrl) window.location.href = setting.aliUrl;
+                            else document.getElementById("code-alipay").style.display = "block";
                         } else if (navigator.userAgent.match(/MicroMessenger\//i)) {
                             /* 微信 */
                             document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
