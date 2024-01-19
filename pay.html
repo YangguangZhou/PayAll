@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="favicon" rel="shortcut icon" href="https://drive.jerryz.com.cn/Photos/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="mengkun">
+    <meta name="renderer" content="webkit">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
+        crossorigin="anonymous"></script>
+    <script src="./qr.js"></script>
+    <title>万能收款码 | by Jerry Zhou</title>
+    <script>
+        var setting = {
+            qqUrl: "",
+            wechatUrl: "",
+            aliUrl: ""
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Microsoft yahei;
+        }
+
+        body {
+            background-color: #fff;
+        }
+
+        .code-item {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding-bottom: 1px;
+            display: none;
+            background-color: #279cff;
+        }
+
+        .code-title {
+            height: 100px;
+            background-color: #f2f2f2;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 50%;
+        }
+
+        .code-area {
+            text-align: center;
+        }
+
+        .code-area img {
+            margin: 80px auto;
+            width: 60%;
+            min-width: 100px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .code-footer {
+            height: 80px;
+            text-align: center;
+            background-color: #fff;
+            color: #555;
+            line-height: 40px;
+            font-size: 20px;
+            margin: 0 4px 3px 4px;
+        }
+
+        #code-all>.code-title {
+            background-image: url("https://img.examcoo.com/ask/7386438/202303/167785900587690.png");
+        }
+
+        #code-qq {
+            background-color: #54b4ef;
+        }
+
+        #code-qq>.code-title {
+            background-image: url("https://img.examcoo.com/ask/7386438/202303/167785890786440.png");
+        }
+
+        #code-wechat {
+            background-color: #54bc6e;
+        }
+
+        #code-wechat>.code-title {
+            background-image: url("https://img.examcoo.com/ask/7386438/202303/167785891216150.png");
+        }
+
+        .message {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error {
+            display: none;
+            color: red;
+        }
+
+        .copyright {
+            text-align: center;
+            margin: 7px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .copyright a {
+            text-decoration: none;
+            font-weight: bold;
+            color: unset;
+            transition: opacity 0.2s;
+        }
+
+        .copyright a:hover {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <center>
+            <h1>万能收款码</h1>
+        </center>
+    </div>
+    <div id="message" class="message">
+        <div id="loading" style="display: none;">加载中...</div>
+        <div id="error" class="error">请输入正确的ID</div>
+    </div>
+    <!-- 万能收款码展示区域 -->
+    <div class="code-item" id="code-all">
+        <div class="code-title"></div>
+        <div class="code-area">
+            <img id="page-url" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=">
+        </div>
+        <div class="code-footer">扫描以上二维码向我付款<br>感谢您的支持</div>
+    </div>
+
+    <!-- QQ钱包二维码展示区域 -->
+    <div class="code-item" id="code-qq">
+        <div class="code-title"></div>
+        <div class="code-area">
+            <img id="qq-url" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=">
+        </div>
+        <div class="code-footer">长按以上二维码向我付款<br>感谢您的支持</div>
+    </div>
+
+    <!-- 微信二维码展示区域 -->
+    <div class="code-item" id="code-wechat">
+        <div class="code-title"></div>
+        <div class="code-area">
+            <img id="wechat-url" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=">
+        </div>
+        <div class="code-footer">保存以上二维码并扫描向我付款<br>感谢您的支持</div>
+    </div>
+
+    <div class="copyright">
+        Copyright &copy; 2024
+        <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
+    </div>
+
+    <script>
+        // 解析当前页面URL中的'id'参数
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('id');
+        var loadingElement = document.getElementById('loading');
+        var errorElement = document.getElementById('error');
+        loadingElement.style.display = 'block';
+        // 如果存在id，则从指定的API获取数据
+        if (id) {
+            fetch(`https://g3rvbpemgm.us.aircode.run/pay?id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    loadingElement.style.display = 'none';
+                    if (data.result == "ID not found!") {
+                        errorElement.style.display = 'block';
+                    } else {
+                        // 将获取到的链接更新到页面上
+                        setting.qqUrl = data.qq;
+                        setting.wechatUrl = data.wechat;
+                        setting.aliUrl = data.alipay;
+
+                        // 根据用户代理设置相应的二维码图片
+                        if (navigator.userAgent.match(/Alipay/i)) {
+                            /* 支付宝 */
+                            window.location.href = setting.aliUrl;
+                        } else if (navigator.userAgent.match(/MicroMessenger\//i)) {
+                            /* 微信 */
+                            document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
+                            document.getElementById("code-wechat").style.display = "block";
+                        } else if (navigator.userAgent.match(/QQ\//i)) {
+                            /* QQ */
+                            document.getElementById("qq-url").src = QRCode.generatePNG(setting.qqUrl, { margin: 0 });
+                            document.getElementById("code-qq").style.display = "block";
+                        } else {
+                            /* 其它，显示“万能码” */
+                            document.getElementById("page-url").src = QRCode.generatePNG(window.location.href, { margin: 0 });
+                            document.getElementById("code-all").style.display = "block";
+                        }
+                    }
+
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                    loadingElement.style.display = 'none';
+                });
+        } else {
+            loadingElement.style.display = 'none';
+            errorElement.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

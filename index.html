@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万能付款码生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .container {
+            width: min(450px, calc(100% - 40px));
+            margin: 10px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0084ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .link-box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            color: #757575;
+            font-size: 14px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin: 7px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .copyright a {
+            text-decoration: none;
+            font-weight: bold;
+            color: unset;
+            transition: opacity 0.2s;
+        }
+
+        .copyright a:hover {
+            opacity: 0.5;
+        }
+
+        .preview {
+            /* width: 100%;
+            height: 300px;
+            border: 1px solid #ddd; */
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="header">万能付款码生成器</h1>
+    <div class="container">
+        微信：<input type="text" id="wechat" placeholder="你的微信付款二维码链接">
+        支付宝：<input type="text" id="alipay" placeholder="你的支付宝付款二维码链接">
+        QQ：<input type="text" id="qq" placeholder="你的QQ付款二维码链接">
+        <button id="generate">生成</button>
+    </div>
+    <div class="container">
+        链接：<div id="link-box" class="link-box" style="width: 100%;">生成的万能付款码链接</div>
+        <button id="copy">复制</button>
+    </div>
+    <div class="container">
+        预览：
+        <iframe id="preview" class="preview"></iframe>
+    </div>
+    <div class="copyright">
+        Copyright &copy; 2024
+        <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
+    </div>
+
+    <script>
+        document.getElementById('generate').addEventListener('click', function () {
+            var wechat = document.getElementById('wechat').value;
+            var alipay = document.getElementById('alipay').value;
+            var qq = document.getElementById('qq').value;
+
+            if (!wechat && !alipay && !qq) {
+                alert('请至少填写一个付款码链接');
+                return;
+            }
+
+            fetch(`https://g3rvbpemgm.us.aircode.run/add?wechat=${wechat}&alipay=${alipay}&qq=${qq}`)
+                .then(response => response.json())
+                .then(data => {
+                    var link = `https://p.jerryz.com.cn/pay?id=${data.id}`;
+                    document.getElementById('link-box').textContent = link;
+
+                    // 设置iframe的src属性为生成的链接
+                    document.getElementById('preview').src = link;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+        document.getElementById('copy').addEventListener('click', function () {
+            var link = document.getElementById('link-box').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('链接已复制到剪贴板');
+            }).catch(err => {
+                console.error('无法复制链接: ', err);
+                // 可以回退到较旧的方法如果新的API不可用
+                var textarea = document.createElement('textarea');
+                textarea.value = link;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('链接已复制到剪贴板');
+            });
+        });
+    </script>
+</body>
+
+</html>
