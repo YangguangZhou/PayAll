@@ -104,7 +104,7 @@
     <div class="code-item" id="code-all">
         <div class="code-title"></div>
         <div class="code-area">
-            <img id="page-url" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=">
+            <img id="page-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
         </div>
         <div class="code-footer">扫描以上二维码向我付款<br>感谢您的支持</div>
     </div>
@@ -113,7 +113,7 @@
     <div class="code-item" id="code-qq">
         <div class="code-title"></div>
         <div class="code-area">
-            <img id="qq-url" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=">
+            <img id="qq-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
         </div>
         <div class="code-footer">长按以上二维码向我付款<br>感谢您的支持</div>
     </div>
@@ -122,7 +122,7 @@
     <div class="code-item" id="code-wechat">
         <div class="code-title"></div>
         <div class="code-area">
-            <img id="wechat-url" src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=">
+            <img id="wechat-url" src="https://img.examcoo.com/ask/7386438/202401/170568067966800.png">
         </div>
         <div class="code-footer">保存以上二维码并扫描向我付款<br>感谢您的支持</div>
     </div>
@@ -152,35 +152,29 @@
         fetch(`https://g3rvbpemgm.us.aircode.run/pay?id=${id}`)
             .then(response => response.json())
             .then(data => {
-                loadingElement.style.display = 'none';
-                if (data.result == "ID not found!") {
-                    errorElement.style.display = 'block';
+                // 将获取到的链接更新到页面上
+                setting.qqUrl = data.qq;
+                setting.wechatUrl = data.wechat;
+                setting.aliUrl = data.alipay;
+
+                // 根据用户代理设置相应的二维码图片
+                if (navigator.userAgent.match(/Alipay/i)) {
+                    /* 支付宝 */
+                    if (setting.aliUrl) window.location.href = setting.aliUrl;
+                    else document.getElementById("code-alipay").style.display = "block";
+                } else if (navigator.userAgent.match(/MicroMessenger\//i)) {
+                    /* 微信 */
+                    if (setting.wechatUrl) document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
+                    document.getElementById("code-wechat").style.display = "block";
+                } else if (navigator.userAgent.match(/QQ\//i)) {
+                    /* QQ */
+                    if (setting.qqUrl) document.getElementById("qq-url").src = QRCode.generatePNG(setting.qqUrl, { margin: 0 });
+                    document.getElementById("code-qq").style.display = "block";
                 } else {
-                    // 将获取到的链接更新到页面上
-                    setting.qqUrl = data.qq;
-                    setting.wechatUrl = data.wechat;
-                    setting.aliUrl = data.alipay;
-
-                    // 根据用户代理设置相应的二维码图片
-                    if (navigator.userAgent.match(/Alipay/i)) {
-                        /* 支付宝 */
-                        if (setting.aliUrl) window.location.href = setting.aliUrl;
-                        else document.getElementById("code-alipay").style.display = "block";
-                    } else if (navigator.userAgent.match(/MicroMessenger\//i)) {
-                        /* 微信 */
-                        if (setting.wechatUrl) document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
-                        document.getElementById("code-wechat").style.display = "block";
-                    } else if (navigator.userAgent.match(/QQ\//i)) {
-                        /* QQ */
-                        if (setting.qqUrl) document.getElementById("qq-url").src = QRCode.generatePNG(setting.qqUrl, { margin: 0 });
-                        document.getElementById("code-qq").style.display = "block";
-                    } else {
-                        /* 其它，显示“万能码” */
-                        document.getElementById("page-url").src = QRCode.generatePNG(window.location.href, { margin: 0 });
-                        document.getElementById("code-all").style.display = "block";
-                    }
+                    /* 其它，显示“万能码” */
+                    document.getElementById("page-url").src = QRCode.generatePNG(window.location.href, { margin: 0 });
+                    document.getElementById("code-all").style.display = "block";
                 }
-
             })
     </script>
 </body>
