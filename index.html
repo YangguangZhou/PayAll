@@ -34,6 +34,10 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        .nodisplay{
+            display: none;
+        }
+
         input[type=text] {
             width: 100%;
             padding: 10px;
@@ -88,9 +92,7 @@
         }
 
         .preview {
-            /* width: 100%;
-            height: 300px;
-            border: 1px solid #ddd; */
+            height: 705px;
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -113,9 +115,13 @@
         链接：<div id="link-box" class="link-box" style="width: 100%;">生成的万能付款码链接</div>
         <button id="copy">复制</button>
     </div>
-    <div class="container">
+    <div class="nodisplay container" id="links">
         预览：
         <iframe id="preview" class="preview"></iframe>
+    </div>
+    <div class="container">
+        链接：<div id="link-box" class="link-box" style="width: 100%;">生成的万能付款码链接</div>
+        <button id="copy">复制</button>
     </div>
     <div class="copyright">
         Copyright &copy; 2024
@@ -141,6 +147,7 @@
 
                     // 设置iframe的src属性为生成的链接
                     document.getElementById('preview').src = link;
+                    document.getElementById('links').style.display = 'block';
                 })
                 .catch(error => {
                     console.error('Error:', error);
