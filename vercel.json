@@ -2,6 +2,7 @@
     "routes": [
         {"handle": "filesystem"},
         { "src": "/pay", "dest": "/pay.html" },
+        { "src": "/pay1", "dest": "/pay1.html" },
         { "src": "/", "dest": "/index.html" }
     ]
 }
