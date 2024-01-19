@@ -1,0 +1,7 @@
+{
+    "routes": [
+        {"handle": "filesystem"},
+        { "src": "/pay", "dest": "/pay.html" },
+        { "src": "/", "dest": "/index.html" }
+    ]
+}
