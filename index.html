@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="favicon" rel="shortcut icon" href="https://jerryz.com.cn/favicon.png" />
-    <script async src="https://umami.jerryz.com.cn/script.js" data-website-id="05c49609-102a-4737-9f42-ed47d90d5452"></script>
+    <script async src="https://umami.jerryz.com.cn/script.js"
+        data-website-id="05c49609-102a-4737-9f42-ed47d90d5452"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
         crossorigin="anonymous"></script>
     <title>万能付款码生成器</title>
@@ -34,7 +35,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .nodisplay{
+        .nodisplay {
             display: none;
         }
 
@@ -100,6 +101,22 @@
             border: 1px solid #ddd;
             box-sizing: border-box;
         }
+
+        .guide {
+            font-size: 14px;
+            color: #757575
+        }
+
+        .guide a {
+            /* text-decoration: none;
+            font-weight: bold; */
+            color: unset;
+            transition: opacity 0.2s;
+        }
+
+        .guide a:hover {
+            opacity: 0.5;
+        }
     </style>
 </head>
 
@@ -120,8 +137,12 @@
         <iframe id="preview" class="preview"></iframe>
     </div>
     <div class="container">
-        链接：<div id="link-box" class="link-box" style="width: 100%;">生成的万能付款码链接</div>
-        <button id="copy">复制</button>
+        使用教程：
+        <div class="guide">
+            1. 从微信（首页-收付款-二维码收款-保存收款码）、支付宝（首页-收付款-收钱-保存图片）、QQ（首页-头像-我的QQ钱包-收付款-收款-保存收款码）中下载收款码<br>
+            2. 打开<a href="https://cli.im/deqr/" target="_blank">二维码识别器</a>，分别上传三个收款码，获取链接<br>
+            3. 将链接输入到文本框中，点击生成，打开生成的链接就可以使用万能付款码了
+        </div>
     </div>
     <div class="copyright">
         Copyright &copy; 2024
