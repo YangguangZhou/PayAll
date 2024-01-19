@@ -209,11 +209,11 @@
                             else document.getElementById("code-alipay").style.display = "block";
                         } else if (navigator.userAgent.match(/MicroMessenger\//i)) {
                             /* 微信 */
-                            document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
+                            if(setting.wechatUrl) document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
                             document.getElementById("code-wechat").style.display = "block";
                         } else if (navigator.userAgent.match(/QQ\//i)) {
                             /* QQ */
-                            document.getElementById("qq-url").src = QRCode.generatePNG(setting.qqUrl, { margin: 0 });
+                            if(setting.qqUrl) document.getElementById("qq-url").src = QRCode.generatePNG(setting.qqUrl, { margin: 0 });
                             document.getElementById("code-qq").style.display = "block";
                         } else {
                             /* 其它，显示“万能码” */
